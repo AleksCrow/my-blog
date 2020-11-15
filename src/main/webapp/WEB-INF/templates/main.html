@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>My blog</title>
+</head>
+<body>
+	<h2>Welcome</h2>
+	<div>
+		<form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+	<h3>Добавить сообщение:</h3>
+	<div>
+	    <form th:action="@{/main}" th:object="${message}" method="post">
+	    	<label for="text">Enter text: </label>
+	    	<input type="text" th:field="*{text}" id="text" placeholder="text" />
+	    	<label for="tag">Enter tag: </label>
+	        <input type="text" th:field="*{tag}" id="tag" placeholder="tag" />
+	        <input type="submit" value="Добавить" />
+	    </form>	
+    </div>
+    <br/>
+	<div>Список сообщений</div>
+	<form th:action="@{/main}" method="get">
+		<input type="text" th:name="filter" placeholder="Search by tag" />
+		<input type="submit" value="Найти" />
+	</form>
+	<div>
+		<tr th:each="message: ${messages}">
+			<div>
+	           <td><strong th:text="${message.id}"> № </Strong></td>
+	           <td><span th:text="${message.text}"> Текст </span></td>
+	           <td><em th:text="${message.tag}"> Тэг </em></td>
+	        </div>
+	   	</tr>
+   	</div>
+</body>
+</html>
