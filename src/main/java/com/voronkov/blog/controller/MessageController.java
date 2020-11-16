@@ -26,7 +26,6 @@ public class MessageController {
   public String getMessages(
       @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
       Model model) {
-    System.out.println(filter);
 
     Iterable<Message> messagesList;
     if (filter != null && !filter.isEmpty()) {

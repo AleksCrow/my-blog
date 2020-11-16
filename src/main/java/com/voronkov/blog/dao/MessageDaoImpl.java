@@ -48,6 +48,7 @@ public class MessageDaoImpl implements MessageDao {
   }
 
   @Override
+  @Transactional
   public List<Message> getAllMessages() {
     return jdbcTemplate.query("SELECT * FROM messages", ROW_MAPPER);
   }
@@ -64,6 +65,7 @@ public class MessageDaoImpl implements MessageDao {
   }
 
   @Override
+  @Transactional
   public List<Message> findByTag(String tag) {
     List<Message> messages =
         jdbcTemplate.query("SELECT * FROM messages WHERE tag = ?", ROW_MAPPER, tag);
