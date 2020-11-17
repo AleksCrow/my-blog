@@ -41,8 +41,9 @@ public class UserDaoImpl implements UserDao {
 
   @Override
   @Transactional
-  public User findByUserName(String name) {
-    List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE name = ?", ROW_MAPPER, name);
+  public User findByUserName(String username) {
+    List<User> users =
+        jdbcTemplate.query("SELECT * FROM users WHERE username = ?", ROW_MAPPER, username);
     return setRoles(DataAccessUtils.singleResult(users));
   }
 
@@ -70,7 +71,7 @@ public class UserDaoImpl implements UserDao {
 
   private User setRoles(User u) {
     if (u != null) {
-      List<Role> roles = jdbcTemplate.queryForList("SELECT role FROM user_roles  WHERE user_id=?",
+      List<Role> roles = jdbcTemplate.queryForList("SELECT role FROM user_roles WHERE user_id=?",
           Role.class, u.getId());
       u.setRoles(roles);
     }

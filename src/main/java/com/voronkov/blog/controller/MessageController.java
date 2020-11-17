@@ -1,6 +1,7 @@
 package com.voronkov.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.voronkov.blog.dao.MessageDao;
 import com.voronkov.blog.model.Message;
+import com.voronkov.blog.model.User;
 
 @Controller
 public class MessageController {
@@ -41,9 +43,8 @@ public class MessageController {
   }
 
   @PostMapping("/main")
-  public String addMessage(@ModelAttribute Message message) {
-
-    messageDao.add(message);
+  public String addMessage(@AuthenticationPrincipal User user, @ModelAttribute Message message) {
+    messageDao.add(message, user);
 
     return "redirect:/main";
   }

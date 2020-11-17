@@ -5,14 +5,20 @@ public class Message {
   private int id;
   private String text;
   private String tag;
+  private User user;
 
-  public Message(String text, String tag) {
+  public Message(String text, String tag, User user) {
+    this.user = user;
     this.text = text;
     this.tag = tag;
   }
 
   public Message() {
 
+  }
+
+  public String getUsername() {
+    return user != null ? user.getUsername() : "<none>";
   }
 
   public int getId() {
@@ -37,6 +43,14 @@ public class Message {
 
   public void setTag(String tag) {
     this.tag = tag;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   @Override

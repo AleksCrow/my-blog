@@ -8,7 +8,7 @@
 <body>
 	<div>Add new User</div>
 	<form th:action="@{/registration}" th:object="${user}" method="post">
-		<div><label> User name: <input type="text" th:field="*{name}" id="name" placeholder="User name" /></label></div>
+		<div><label> User name: <input type="text" th:field="*{username}" id="username" placeholder="User name" /></label></div>
 		<div><label> User password: <input type="text" th:field="*{password}" id="password" placeholder="Password" /></label></div>
 		<div><input type="submit" value="Sign in" /></div>
 	</form>

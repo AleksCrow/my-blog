@@ -4,21 +4,20 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.CollectionUtils;
 
-public class User {
+public class User implements UserDetails {
+
   private int id;
-  private String name;
+  private String username;
   private String password;
   private boolean active;
   private Set<Role> roles;
 
   public int getId() {
     return id;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public String getPassword() {
@@ -31,10 +30,6 @@ public class User {
 
   public void setId(int id) {
     this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public void setPassword(String password) {
@@ -53,5 +48,45 @@ public class User {
   public void setActive(boolean active) {
     this.active = active;
   }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return getRoles();
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return isActive();
+  }
+
+  @Override
+  public String toString() {
+    return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+  }
+
+
 
 }

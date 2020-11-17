@@ -29,7 +29,7 @@ public class UserController {
 
   @PostMapping("/registration")
   public String addUser(@ModelAttribute User user, Model model) {
-    User userFromDb = userDao.findByUserName(user.getName());
+    User userFromDb = userDao.findByUserName(user.getUsername());
 
     if (userFromDb != null) {
       model.addAttribute("message", "user already exists!");
