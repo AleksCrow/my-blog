@@ -1,6 +1,9 @@
 package com.voronkov.blog.dao;
 
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +52,47 @@ public class UserDaoImpl implements UserDao {
 
   @Override
   @Transactional
+  public List<User> getAll() {
+    Map<Integer, Set<Role>> map = new HashMap<>();
+    jdbcTemplate.query("SELECT * FROM user_roles", rs -> {
+      map.computeIfAbsent(rs.getInt("user_id"), userId -> EnumSet.noneOf(Role.class))
+          .add(Role.valueOf(rs.getString("role")));
+    });
+    List<User> users = jdbcTemplate.query("SELECT * FROM users ORDER BY username", ROW_MAPPER);
+    users.forEach(u -> u.setRoles(map.get(u.getId())));
+    return users;
+  }
+
+  @Override
+  @Transactional
   public User addUser(User user) {
     BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
     Number newKey = insertUser.executeAndReturnKey(parameterSource);
     user.setId(newKey.intValue());
     insertRoles(user);
+    return user;
+  }
+
+  @Override
+  @Transactional
+  public User findById(int id) {
+    List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id = ?", ROW_MAPPER, id);
+    return setRoles(DataAccessUtils.singleResult(users));
+  }
+
+  @Override
+  @Transactional
+  public User update(User user) {
+    BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
+
+    if (namedParameterJdbcTemplate.update("UPDATE users SET username=:username WHERE id=:id",
+        parameterSource) == 0) {
+      return null;
+    }
+    deleteRoles(user);
+    insertRoles(user);
+
     return user;
   }
 
@@ -67,6 +105,10 @@ public class UserDaoImpl implements UserDao {
             ps.setString(2, role.name());
           });
     }
+  }
+
+  private void deleteRoles(User u) {
+    jdbcTemplate.update("DELETE FROM user_roles WHERE user_id=?", u.getId());
   }
 
   private User setRoles(User u) {

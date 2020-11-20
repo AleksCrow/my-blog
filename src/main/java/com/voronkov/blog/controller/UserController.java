@@ -1,45 +1,54 @@
 package com.voronkov.blog.controller;
 
-import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.BeanDefinitionDsl.Role;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.voronkov.blog.dao.UserDao;
-import com.voronkov.blog.model.Role;
 import com.voronkov.blog.model.User;
 
 @Controller
+@RequestMapping("/user")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
   @Autowired
   private UserDao userDao;
 
-  @GetMapping("/registration")
-  public String registration(Model model) {
+  @GetMapping
+  public String userList(Model model) {
 
-    model.addAttribute("user", new User());
+    List<User> users = userDao.getAll();
 
-    return "registration";
+    model.addAttribute("users", users);
+
+    return "userlist";
   }
 
-  @PostMapping("/registration")
-  public String addUser(@ModelAttribute User user, Model model) {
-    User userFromDb = userDao.findByUserName(user.getUsername());
+  @GetMapping("/{id}")
+  public String userEditForm(@PathVariable("id") int id, Model model) {
+    User user = userDao.findById(id);
 
-    if (userFromDb != null) {
-      model.addAttribute("message", "user already exists!");
-      return "registration";
-    }
+    model.addAttribute("user", user);
+    model.addAttribute("roles", Role.values());
 
-    user.setActive(true);
-    user.setRoles(Collections.singleton(Role.USER));
+    return "useredit";
+  }
 
-    userDao.addUser(user);
-    return "redirect:/login";
+  @PostMapping
+  public String saveUser(@ModelAttribute("id") User user) {
+
+    userDao.update(user);
+
+    return "redirect:/user";
   }
 }

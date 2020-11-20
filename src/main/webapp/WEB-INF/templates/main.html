@@ -12,31 +12,42 @@
             <input type="submit" value="Sign Out"/>
         </form>
     </div>
-	<h3>Добавить сообщение:</h3>
+    <span><a href="/user">Users</a></span>
+	<h3>Add message:</h3>
 	<div>
 	    <form th:action="@{/main}" th:object="${message}" method="post">
 	    	<label for="text">Enter text: </label>
 	    	<input type="text" th:field="*{text}" id="text" placeholder="text" />
 	    	<label for="tag">Enter tag: </label>
 	        <input type="text" th:field="*{tag}" id="tag" placeholder="tag" />
-	        <input type="submit" value="Добавить" />
+	        <input type="submit" value="Append" />
 	    </form>	
     </div>
-    <br/>
-	<div>Список сообщений</div>
+    </br>
+	<div>Messages list:</div>
 	<form th:action="@{/main}" method="get">
 		<input type="text" th:name="filter" placeholder="Search by tag" />
-		<input type="submit" value="Найти" />
+		<input type="submit" value="Search" />
 	</form>
-	<div>
-		<tr th:each="message: ${messages}">
-			<div>
-	           <td><strong th:text="${message.id}"> № </Strong></td>
-	           <td><span th:text="${message.text}"> Текст </span></td>
-	           <td><em th:text="${message.tag}"> Тэг </em></td>
-	           <td><strong th:text="${message.username}"> Author </strong></td>
-	        </div>
-	   	</tr>
-   	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>№</th>
+				<th>Text</th>
+				<th>Tag</th>
+				<th>User</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="message: ${messages}">
+				<div>
+		           <td><strong th:text="${message.id}"></Strong></td>
+		           <td><span th:text="${message.text}"></span></td>
+		           <td><em th:text="${message.tag}"></em></td>
+		           <td><strong th:text="${message.username}"></strong></td>
+		        </div>
+		   	</tr>
+	   	</tbody>
+   	</table>
 </body>
 </html>

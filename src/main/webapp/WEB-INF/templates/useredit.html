@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>User edit</title>
+</head>
+<body>
+    <form th:action="@{/user}" th:object="${user}" method="post">
+    	<label for="text">Name: </label>
+    	<input type="text" th:field="*{username}" name="username" />
+    	<input type="hidden" th:field="*{id}" name="id">
+    	<br/>
+    	<label for="text">Roles: </label>
+    	<div th:each="rolelist: ${T(com.voronkov.blog.model.Role).values()}">
+    		<label th:text="${rolelist}"></label>
+       		<input type="checkbox" th:field="*{roles}" th:value="${rolelist}" th:checked="${#lists.contains(user.roles, role)}" />
+        </div>
+        <input type="submit" value="Save" />
+    </form>
+</body>
+</html>
