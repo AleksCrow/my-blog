@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>My blog</title>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>My blog</title>
+		<link rel="stylesheet" type="text/css" href="/resources/style.css"></link>
+	</head> 
 <body>
 	<h2>Welcome</h2>
 	<div>
@@ -15,15 +15,16 @@
     <span><a href="/user">Users</a></span>
 	<h3>Add message:</h3>
 	<div>
-	    <form th:action="@{/main}" th:object="${message}" method="post">
+	    <form th:action="@{/main}" th:object="${messageDto}" method="post" enctype="multipart/form-data">
 	    	<label for="text">Enter text: </label>
 	    	<input type="text" th:field="*{text}" id="text" placeholder="text" />
 	    	<label for="tag">Enter tag: </label>
 	        <input type="text" th:field="*{tag}" id="tag" placeholder="tag" />
+	        <input type="file" th:field="*{file}" />
 	        <input type="submit" value="Append" />
 	    </form>	
     </div>
-    </br>
+    <br>
 	<div>Messages list:</div>
 	<form th:action="@{/main}" method="get">
 		<input type="text" th:name="filter" placeholder="Search by tag" />
@@ -36,16 +37,18 @@
 				<th>Text</th>
 				<th>Tag</th>
 				<th>User</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="message: ${messages}">
-				<div>
-		           <td><strong th:text="${message.id}"></Strong></td>
-		           <td><span th:text="${message.text}"></span></td>
-		           <td><em th:text="${message.tag}"></em></td>
-		           <td><strong th:text="${message.username}"></strong></td>
-		        </div>
+	           <td><strong th:text="${message.id}"></Strong></td>
+	           <td><span th:text="${message.text}"></span></td>
+	           <td><em th:text="${message.tag}"></em></td>
+	           <td><strong th:text="${message.username}"></strong></td>
+	           <td th:if="${message.filename != null}">
+	           		<img th:src="@{'/img/' + ${message.filename}}" width="200" />	
+	           </td>
 		   	</tr>
 	   	</tbody>
    	</table>

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:/postgres.properties")
+@PropertySource("classpath:/application.properties")
 public class ConnectionConfig {
 
   private Environment environment;

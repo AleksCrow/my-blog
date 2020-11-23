@@ -29,10 +29,15 @@ public class RegistrationController {
 
   @PostMapping("/registration")
   public String addUser(@ModelAttribute User user, Model model) {
+    if (user.getUsername().equals("") || user.getPassword().equals("")) {
+      model.addAttribute("error", "One of fields is empty");
+      return "registration";
+    }
+
     User userFromDb = userDao.findByUserName(user.getUsername());
 
     if (userFromDb != null) {
-      model.addAttribute("message", "user already exists!");
+      model.addAttribute("error", "user already exists!");
       return "registration";
     }
 

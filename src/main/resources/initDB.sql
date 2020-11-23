@@ -12,6 +12,7 @@ CREATE TABLE messages(
 	text VARCHAR NOT NULL,
 	tag VARCHAR NOT NULL,
 	user_id INTEGER NOT NULL,
+	filename VARCHAR,
 	FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 

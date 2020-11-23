@@ -2,6 +2,8 @@ package com.voronkov.blog.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,7 +15,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,11 +33,11 @@ import com.voronkov.blog.config.security.SecurityConfig;
 @Import({ConnectionConfig.class, SecurityConfig.class})
 public class WebAppConfig implements WebMvcConfigurer {
 
+  @Autowired
   private ApplicationContext applicationContext;
 
-  public WebAppConfig(ApplicationContext applicationContext) {
-    this.applicationContext = applicationContext;
-  }
+  @Value("${upload.path}")
+  private String uploadPath;
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
@@ -74,6 +78,11 @@ public class WebAppConfig implements WebMvcConfigurer {
     return templateEngine;
   }
 
+  @Bean
+  public StandardServletMultipartResolver multipartResolver() {
+    return new StandardServletMultipartResolver();
+  }
+
   @Override
   public void configureViewResolvers(ViewResolverRegistry registry) {
     ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -82,5 +91,11 @@ public class WebAppConfig implements WebMvcConfigurer {
     resolver.setForceContentType(true);
     resolver.setContentType("text/html; charset=UTF-8");
     registry.viewResolver(resolver);
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/img/**").addResourceLocations("file:///" + uploadPath + "/");
+    registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/static/");
   }
 }

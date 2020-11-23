@@ -55,7 +55,7 @@ public class MessageDaoImpl implements MessageDao {
   public Message add(Message message, User user) {
     MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", message.getId())
         .addValue("text", message.getText()).addValue("tag", message.getTag())
-        .addValue("user_id", user.getId());
+        .addValue("user_id", user.getId()).addValue("filename", message.getFilename());
 
     Number newId = insertMessage.executeAndReturnKey(map);
     message.setId(newId.intValue());

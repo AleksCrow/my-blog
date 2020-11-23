@@ -4,13 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>User registration</title>
+<style rel="stylesheet" href="/static/style.css"></style>
 </head>
 <body>
 	<div>Add new User</div>
 	<form th:action="@{/registration}" th:object="${user}" method="post">
-		<div><label> User name: <input type="text" th:field="*{username}" id="username" placeholder="User name" /></label></div>
-		<div><label> User password: <input type="text" th:field="*{password}" id="password" placeholder="Password" /></label></div>
+		<label> User name: <input type="text" th:field="*{username}" id="username" placeholder="User name" /></label>
+		<label> User password: <input type="text" th:field="*{password}" id="password" placeholder="Password" /></label>
 		<div><input type="submit" value="Sign in" /></div>
+		<p th:text="${error}"></p>
 	</form>
 </body>
 </html>

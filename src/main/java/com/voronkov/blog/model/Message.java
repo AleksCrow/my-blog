@@ -6,6 +6,7 @@ public class Message {
   private String text;
   private String tag;
   private User user;
+  private String filename;
 
   public Message(String text, String tag, User user) {
     this.user = user;
@@ -51,6 +52,14 @@ public class Message {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public String getFilename() {
+    return filename;
+  }
+
+  public void setFilename(String filename) {
+    this.filename = filename;
   }
 
   @Override

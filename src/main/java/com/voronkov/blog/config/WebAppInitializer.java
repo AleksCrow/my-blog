@@ -1,6 +1,7 @@
 package com.voronkov.blog.config;
 
 import javax.servlet.FilterRegistration;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -14,6 +15,8 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class WebAppInitializer implements WebApplicationInitializer {
+
+  private final static int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
 
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
@@ -38,5 +41,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
         servletContext.addServlet("mvc", new DispatcherServlet(new GenericWebApplicationContext()));
     appServlet.setLoadOnStartup(1);
     appServlet.addMapping("/");
+
+    MultipartConfigElement multipartConfigElement = new MultipartConfigElement("/tmp",
+        MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
+
+    appServlet.setMultipartConfig(multipartConfigElement);
   }
 }
