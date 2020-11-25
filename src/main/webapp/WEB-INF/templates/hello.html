@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>Hello, user!</title>
-<style rel="stylesheet" href="/static/style.css"></style>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
 <body>
-	<div>Hello, user</div>
-	<a href="/main">Main page</a>
+	<section layout:fragment="custom-content">
+		<h2>My blog</h2>
+		<h4>Helo, guest!</h4>
+		<p>This is small blog</p>
+	</section>
 </body>
 </html>

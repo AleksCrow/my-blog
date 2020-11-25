@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>User registration</title>
-<style rel="stylesheet" href="/static/style.css"></style>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
 <body>
-	<div>Add new User</div>
+<section layout:fragment="custom-content">
 	<form th:action="@{/registration}" th:object="${user}" method="post">
-		<label> User name: <input type="text" th:field="*{username}" id="username" placeholder="User name" /></label>
-		<label> User password: <input type="text" th:field="*{password}" id="password" placeholder="Password" /></label>
-		<div><input type="submit" value="Sign in" /></div>
-		<p th:text="${error}"></p>
+		<h5 class="mb-4">Add new User</h5>
+		
+		<div th:replace="fragments/fragments :: login_and_registration">
+       	</div>
+
+		<div th:if="${param.errorEmpty}" class="alert alert-warning" role="alert">    
+             Name or password is empty.
+        </div>
+        <div th:if="${param.errorExist}" class="alert alert-danger" role="alert">    
+             User is already exist.
+        </div>
+		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
+</section>
 </body>
 </html>

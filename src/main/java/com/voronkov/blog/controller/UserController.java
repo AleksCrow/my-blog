@@ -40,6 +40,7 @@ public class UserController {
 
     model.addAttribute("user", user);
     model.addAttribute("roles", Role.values());
+    model.addAttribute("title", "Users data");
 
     return "useredit";
   }

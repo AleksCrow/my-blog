@@ -50,6 +50,7 @@ public class MessageController {
 
     model.addAttribute("messages", messagesList);
     model.addAttribute("messageDto", new MessageDto());
+    model.addAttribute("title", "Messages");
 
     return "main";
   }

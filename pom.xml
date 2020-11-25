@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.voronkov</groupId>
-  <artifactId>SimpleBlog</artifactId>
+  <artifactId>MyBlog</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
-  <name>SimpleBlog Maven Webapp</name>
+  <name>My blog</name>
   
   <properties>
    	<formatter.plugin.version>2.12.1</formatter.plugin.version>
@@ -83,12 +83,22 @@
       <artifactId>thymeleaf-spring5</artifactId>
       <version>3.0.11.RELEASE</version>
     </dependency>
+    <dependency>
+	    <groupId>org.thymeleaf.extras</groupId>
+	    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+	    <version>3.0.4.RELEASE</version>
+	</dependency>
+    <dependency>
+	    <groupId>nz.net.ultraq.thymeleaf</groupId>
+	    <artifactId>thymeleaf-layout-dialect</artifactId>
+	    <version>2.5.1</version>
+	</dependency>
     
     <dependency>
-    <groupId>commons-fileupload</groupId>
-    <artifactId>commons-fileupload</artifactId>
-    <version>1.4</version>
-</dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.4</version>
+	</dependency>
    	
   	<dependency>
 		<groupId>org.junit.jupiter</groupId>
@@ -117,7 +127,7 @@
   </dependencies>
   
   <build>
-    <finalName>SimpleBlog</finalName>
+    <finalName>My blog</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

@@ -1,56 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>My blog</title>
-		<link rel="stylesheet" type="text/css" href="/resources/style.css"></link>
-	</head> 
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
-	<h2>Welcome</h2>
-	<div>
-		<form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </div>
-    <span><a href="/user">Users</a></span>
-	<h3>Add message:</h3>
-	<div>
-	    <form th:action="@{/main}" th:object="${messageDto}" method="post" enctype="multipart/form-data">
-	    	<label for="text">Enter text: </label>
-	    	<input type="text" th:field="*{text}" id="text" placeholder="text" />
-	    	<label for="tag">Enter tag: </label>
-	        <input type="text" th:field="*{tag}" id="tag" placeholder="tag" />
-	        <input type="file" th:field="*{file}" />
-	        <input type="submit" value="Append" />
-	    </form>	
-    </div>
-    <br>
-	<div>Messages list:</div>
-	<form th:action="@{/main}" method="get">
-		<input type="text" th:name="filter" placeholder="Search by tag" />
-		<input type="submit" value="Search" />
-	</form>
-	<table>
-		<thead>
-			<tr>
-				<th>№</th>
-				<th>Text</th>
-				<th>Tag</th>
-				<th>User</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="message: ${messages}">
-	           <td><strong th:text="${message.id}"></Strong></td>
-	           <td><span th:text="${message.text}"></span></td>
-	           <td><em th:text="${message.tag}"></em></td>
-	           <td><strong th:text="${message.username}"></strong></td>
-	           <td th:if="${message.filename != null}">
-	           		<img th:src="@{'/img/' + ${message.filename}}" width="200" />	
-	           </td>
-		   	</tr>
-	   	</tbody>
-   	</table>
+<section layout:fragment="custom-content">
+	<h2 class="mb-5">Welcome, <span sec:authentication="name"></span>!</h2>
+	
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<form class="form-inline" th:action="@{/main}" method="get">
+				<input class="form-control mr-2" type="text" th:name="filter" placeholder="Search by tag" />
+				<input class="btn btn-primary" type="submit" value="Search" />
+			</form>
+		</div>
+	</div>
+	
+	<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+	    Add message:
+  	</a>
+	<div class="collapse" id="collapseExample">
+		<div class="form-group mt-3">
+			<form th:action="@{/main}" th:object="${messageDto}" method="post"
+				enctype="multipart/form-data">
+				<div class="form-group">
+					<input class="form-control" type="text" th:field="*{text}"
+						id="text" placeholder="text" />
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" th:field="*{tag}" id="tag"
+						placeholder="tag" />
+				</div>
+				<div class="form-group">
+					<div class="custom-file">
+						<input type="file" th:field="*{file}" id="customFile" /> <label
+							class="custom-file-label" for="customFile">Choose file</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" type="submit">Append</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<br>
+	<div class="card-columns">
+		<div class="card my-3" th:each="message: ${messages}">
+			<div th:if="${message.filename != null}">
+				<img class="card-img-top" th:src="@{'/img/' + ${message.filename}}" />
+			</div>
+			<div class="m-2">
+				<span th:text="${message.text}"></span> <em
+					th:text="${message.tag}"></em>
+			</div>
+			<div class="card-footer text-muted">
+				<strong th:text="${message.username}"></strong>
+			</div>
+		</div>
+	</div>
+   	</section>
 </body>
 </html>

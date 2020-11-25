@@ -23,6 +23,7 @@ public class RegistrationController {
   public String registration(Model model) {
 
     model.addAttribute("user", new User());
+    model.addAttribute("title", "Registration");
 
     return "registration";
   }
@@ -30,15 +31,13 @@ public class RegistrationController {
   @PostMapping("/registration")
   public String addUser(@ModelAttribute User user, Model model) {
     if (user.getUsername().equals("") || user.getPassword().equals("")) {
-      model.addAttribute("error", "One of fields is empty");
-      return "registration";
+      return "redirect:/registration?errorEmpty";
     }
 
     User userFromDb = userDao.findByUserName(user.getUsername());
 
     if (userFromDb != null) {
-      model.addAttribute("error", "user already exists!");
-      return "registration";
+      return "redirect:/registration?errorExist";
     }
 
     user.setActive(true);
