@@ -15,4 +15,6 @@ public interface UserDao {
   User addUser(User user);
 
   User update(User user);
+
+  User findByActivationCode(String code);
 }

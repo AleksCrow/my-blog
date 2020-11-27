@@ -26,7 +26,9 @@
 		        	<a class="nav-link" href="/user">User list</a>
 		      	</li>
 	      	</ul>
-	      	<div sec:authorize="isAuthenticated()" class="navbar-text mr-3"><span sec:authentication="name"></span></div>
+	      	<div sec:authorize="isAuthenticated()" class="navbar-text mr-3">
+	      		<span sec:authentication="name"></span>
+      		</div>
 	      	<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
 	            <button type="submit" class="btn btn-primary">Sign out</button>
 	        </form>

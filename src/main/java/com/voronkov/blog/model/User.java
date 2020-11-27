@@ -15,6 +15,8 @@ public class User implements UserDetails {
   private String password;
   private boolean active;
   private Set<Role> roles;
+  private String email;
+  private String activationCode;
 
   public int getId() {
     return id;
@@ -82,11 +84,19 @@ public class User implements UserDetails {
     return isActive();
   }
 
-  @Override
-  public String toString() {
-    return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+  public String getEmail() {
+    return email;
   }
 
+  public String getActivationCode() {
+    return activationCode;
+  }
 
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
+  public void setActivationCode(String activationCode) {
+    this.activationCode = activationCode;
+  }
 }

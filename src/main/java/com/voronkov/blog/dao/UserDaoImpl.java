@@ -86,7 +86,8 @@ public class UserDaoImpl implements UserDao {
   public User update(User user) {
     BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
-    if (namedParameterJdbcTemplate.update("UPDATE users SET username=:username WHERE id=:id",
+    if (namedParameterJdbcTemplate.update(
+        "UPDATE users SET username=:username, activation_code=:activationCode WHERE id=:id",
         parameterSource) == 0) {
       return null;
     }
@@ -94,6 +95,14 @@ public class UserDaoImpl implements UserDao {
     insertRoles(user);
 
     return user;
+  }
+
+  @Override
+  @Transactional
+  public User findByActivationCode(String code) {
+    List<User> users =
+        jdbcTemplate.query("SELECT * FROM users WHERE activation_code = ?", ROW_MAPPER, code);
+    return setRoles(DataAccessUtils.singleResult(users));
   }
 
   private void insertRoles(User u) {

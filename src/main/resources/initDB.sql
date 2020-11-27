@@ -1,10 +1,14 @@
 DROP TABLE IF EXISTS messages CASCADE;
+--DROP TABLE IF EXISTS users CASCADE;
+--DROP TABLE IF EXISTS user_roles CASCADE;
 
 --CREATE TABLE users(
 --	id SERIAL PRIMARY KEY,
 --	username VARCHAR NOT NULL,
 --	password VARCHAR NOT NULL,
---	active BOOLEAN DEFAULT FALSE
+--	active BOOLEAN DEFAULT FALSE,
+--	email VARCHAR NOT NULL,
+--	activation_code VARCHAR
 --);
 
 CREATE TABLE messages(
