@@ -13,6 +13,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import liquibase.integration.spring.SpringLiquibase;
+
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:/application.properties")

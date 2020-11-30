@@ -134,6 +134,26 @@
 	    <version>1.4.200</version>
 	    <scope>test</scope>
 	</dependency>
+	<dependency>
+	    <groupId>org.liquibase</groupId>
+	    <artifactId>liquibase-core</artifactId>
+	    <version>4.2.0</version>
+	</dependency>
+		<dependency>
+	    <groupId>org.liquibase</groupId>
+	    <artifactId>liquibase-maven-plugin</artifactId>
+	    <version>4.2.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.flywaydb</groupId>
+	    <artifactId>flyway-core</artifactId>
+	    <version>7.3.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.flywaydb</groupId>
+	    <artifactId>flyway-maven-plugin</artifactId>
+	    <version>7.3.0</version>
+	</dependency>
   </dependencies>
   
   <build>
@@ -179,6 +199,21 @@
           </execution>
         </executions>
       </plugin>
+      
+      <plugin>
+        <groupId>org.liquibase</groupId>
+       	<artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.2.0</version>
+        <configuration>                  
+            <propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+        </configuration>                
+    	</plugin>
+    	
+    	<plugin>
+		    <groupId>org.flywaydb</groupId>
+		    <artifactId>flyway-maven-plugin</artifactId>
+		    <version>4.0.3</version> 
+		</plugin>
     </plugins>
   </build>
 </project>
