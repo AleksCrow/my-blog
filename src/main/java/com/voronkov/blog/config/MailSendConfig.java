@@ -2,13 +2,21 @@ package com.voronkov.blog.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
+@PropertySource("classpath:/mail.properties")
 public class MailSendConfig {
+
+  @Autowired
+  private Environment environment;
 
   @Bean
   public JavaMailSender getJavaMailSender() {
@@ -16,8 +24,8 @@ public class MailSendConfig {
     mailSender.setHost("smtp.gmail.com");
     mailSender.setPort(587);
 
-    mailSender.setUsername("mail@gmail.com");
-    mailSender.setPassword("password");
+    mailSender.setUsername(environment.getProperty("spring.mail.username"));
+    mailSender.setPassword(environment.getProperty("spring.mail.password"));
 
     Properties props = mailSender.getJavaMailProperties();
     props.put("mail.transport.protocol", "smtp");

@@ -51,6 +51,6 @@ public class RegistrationController {
       model.addAttribute("message", "You account is already activated!");
     }
 
-    return "login";
+    return "profile";
   }
 }

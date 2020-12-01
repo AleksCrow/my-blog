@@ -2,6 +2,7 @@ package com.voronkov.blog.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -13,18 +14,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import liquibase.integration.spring.SpringLiquibase;
-
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:/application.properties")
 public class ConnectionConfig {
 
+  @Autowired
   private Environment environment;
-
-  public ConnectionConfig(Environment environment) {
-    this.environment = environment;
-  }
 
   private static final String URL = "url";
   private static final String USER = "user";

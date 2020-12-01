@@ -25,21 +25,6 @@ public class WebAppConfig implements WebMvcConfigurer {
     registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
   }
 
-  // @Bean
-  // public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
-  // final DataSourceInitializer initializer = new DataSourceInitializer();
-  // initializer.setDataSource(dataSource);
-  // initializer.setDatabasePopulator(databasePopulator());
-  // return initializer;
-  // }
-  //
-  // private DatabasePopulator databasePopulator() {
-  // Resource resource = new ClassPathResource("initDB.sql");
-  // final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-  // populator.addScript(resource);
-  // return populator;
-  // }
-
   @Bean
   public StandardServletMultipartResolver multipartResolver() {
     return new StandardServletMultipartResolver();

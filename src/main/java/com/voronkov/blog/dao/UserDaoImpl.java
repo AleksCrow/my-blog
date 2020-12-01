@@ -86,8 +86,8 @@ public class UserDaoImpl implements UserDao {
   public User update(User user) {
     BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
-    if (namedParameterJdbcTemplate.update(
-        "UPDATE users SET username=:username, activation_code=:activationCode WHERE id=:id",
+    if (namedParameterJdbcTemplate.update("UPDATE users SET username=:username, " + "email=:email, "
+        + "password=:password, " + "activation_code=:activationCode " + "WHERE id=:id",
         parameterSource) == 0) {
       return null;
     }

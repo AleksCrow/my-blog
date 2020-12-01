@@ -3,6 +3,7 @@ package com.voronkov.blog.dao;
 import java.util.List;
 
 import com.voronkov.blog.model.User;
+import com.voronkov.blog.model.dto.UserDto;
 
 public interface UserDao {
 
