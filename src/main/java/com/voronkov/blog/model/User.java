@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.CollectionUtils;
@@ -11,10 +15,20 @@ import org.springframework.util.CollectionUtils;
 public class User implements UserDetails {
 
   private int id;
+
+  @NotBlank(message = "User name cannot be empty")
+  @Size(min = 3, max = 30, message = "Name should be between 2 and 30")
   private String username;
+
+  @NotBlank(message = "Password cannot be empty")
+  @Size(min = 6, max = 32, message = "Password is not valid, the minimum number of letters is 6")
   private String password;
+
   private boolean active;
   private Set<Role> roles;
+
+  @Email(message = "Email is not correct")
+  @NotBlank(message = "Email cannot be empty")
   private String email;
   private String activationCode;
 

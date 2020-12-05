@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.voronkov.blog.dao.UserDao;
@@ -25,6 +26,9 @@ public class UserService implements UserDetailsService {
   @Autowired
   private EmailSender emailSender;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return userDao.findByUserName(username);
@@ -40,6 +44,7 @@ public class UserService implements UserDetailsService {
     user.setActive(true);
     user.setRoles(Collections.singleton(Role.USER));
     user.setActivationCode(UUID.randomUUID().toString());
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
 
     userDao.addUser(user);
 
@@ -78,6 +83,9 @@ public class UserService implements UserDetailsService {
 
     boolean ifEmailChanged = !user.getEmail().equals(userDto.getEmail());
 
+    if (!userDto.getPassword().isEmpty()) {
+      userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    }
     UserUtil.updateFromUserDto(user, userDto);
 
     if (ifEmailChanged) {

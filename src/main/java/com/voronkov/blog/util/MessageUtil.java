@@ -9,7 +9,6 @@ public class MessageUtil {
     message.setId(messageDto.getId());
     message.setText(messageDto.getText());
     message.setTag(messageDto.getTag());
-    message.setUser(messageDto.getUser());
 
     return message;
   }

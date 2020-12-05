@@ -6,9 +6,7 @@
 		<div th:if="${message}" class="alert alert-primary">
 			<span th:text="${message}"></span>
 		</div>
-		<!-- <div sec:authorize="!isAuthenticated()">
-			<a href="/login">Sign in</a>
-		</div> -->
+		
 		<div sec:authorize="isAuthenticated()">
 	        <form th:action="@{/user/profile}" th:object="${userDto}" method="post">
 	        	<h5 class="mb-4">Enter new data for <span th:text="${username}"></span></h5>
@@ -16,13 +14,15 @@
 				<div class="form-group row">        
 		          	<label class="col-sm-2 col-form-label" for="password">Password: </label>
 		          	<div class="col-sm-5">
-		     			<input class="form-control" type="password" id="password" name="password" placeholder="Password"/>  
+		     			<input class="form-control" th:classappend="${#fields.hasErrors('password')} ? is-invalid : ''" type="password" id="password" th:field="*{password}" placeholder="Password"/>
+		     			<div th:classappend="${#fields.hasErrors('password')} ? invalid-feedback : ''" th:errors="*{password}"></div>  
 					</div>
 		        </div>
 		        <div class="form-group row">        
 		          	<label class="col-sm-2 col-form-label" for="email">Email: </label>
 		          	<div class="col-sm-5">
-		     			<input class="form-control" type="email" th:value="${email}" id="email" name="email" />  
+		     			<input class="form-control" th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''" type="email" th:value="${email}" id="email" name="email" />
+		     			<div th:classappend="${#fields.hasErrors('email')} ? invalid-feedback : ''" th:errors="*{email}"></div>  
 					</div>
 		        </div>
 	            <button type="submit" class="btn btn-primary">Save</button>
