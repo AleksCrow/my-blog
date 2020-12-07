@@ -161,13 +161,13 @@
   <build>
     <finalName>My blog</finalName>
     <plugins>
-      <plugin>
+      <!-- <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
           <release>14</release>
         </configuration>
-      </plugin>
+      </plugin> -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.3</version>
