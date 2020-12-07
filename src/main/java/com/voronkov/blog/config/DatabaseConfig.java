@@ -11,21 +11,23 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
+import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:/application.properties")
-public class ConnectionConfig {
+public class DatabaseConfig {
 
   @Autowired
   private Environment environment;
 
-  private static final String URL = "url";
-  private static final String USER = "user";
-  private static final String DRIVER = "driver";
-  private static final String PASSWORD = "password";
+  private static final String URL = "postgres.url";
+  private static final String USER = "postgres.user";
+  private static final String DRIVER = "postgres.driver";
+  private static final String PASSWORD = "postgres.password";
 
   @Bean
   DataSource dataSource() {
