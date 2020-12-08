@@ -16,7 +16,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 public class WebAppInitializer implements WebApplicationInitializer {
 
-  private final static int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+  private final static int MAX_UPLOAD_SIZE = 50 * 1024;
 
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
