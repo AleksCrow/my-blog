@@ -3,7 +3,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.voronkov</groupId>
   <artifactId>MyBlog</artifactId>
-  <packaging>war</packaging>
   <version>1.0</version>
   <name>My blog</name>
   
