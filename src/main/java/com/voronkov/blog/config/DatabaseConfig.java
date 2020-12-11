@@ -18,16 +18,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:/application.properties")
+@PropertySource("classpath:/postgres.properties")
 public class DatabaseConfig {
 
   @Autowired
   private Environment environment;
 
-  private static final String URL = "postgres.url";
-  private static final String USER = "postgres.user";
-  private static final String DRIVER = "postgres.driver";
-  private static final String PASSWORD = "postgres.password";
+  private static final String URL = "database.url";
+  private static final String USER = "database.user";
+  private static final String PASSWORD = "database.password";
 
   @Bean
   DataSource dataSource() {
@@ -35,7 +34,6 @@ public class DatabaseConfig {
     driverManagerDataSource.setUrl(environment.getProperty(URL));
     driverManagerDataSource.setUsername(environment.getProperty(USER));
     driverManagerDataSource.setPassword(environment.getProperty(PASSWORD));
-    driverManagerDataSource.setDriverClassName(environment.getProperty(DRIVER));
     return driverManagerDataSource;
   }
 
