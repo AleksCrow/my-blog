@@ -141,16 +141,6 @@
 	    <version>1.4.200</version>
 	    <scope>test</scope>
 	</dependency>
-	<dependency>
-	    <groupId>org.flywaydb</groupId>
-	    <artifactId>flyway-core</artifactId>
-	    <version>7.3.0</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.flywaydb</groupId>
-	    <artifactId>flyway-maven-plugin</artifactId>
-	    <version>7.3.0</version>
-	</dependency>
   </dependencies>
   
   <build>
@@ -217,6 +207,16 @@
 			    <artifactId>postgresql</artifactId>
 			    <version>42.2.16</version>
 			</dependency>
+			<dependency>
+			    <groupId>org.flywaydb</groupId>
+			    <artifactId>flyway-core</artifactId>
+			    <version>7.3.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.flywaydb</groupId>
+			    <artifactId>flyway-maven-plugin</artifactId>
+			    <version>7.3.0</version>
+			</dependency>
   		</dependencies>
   		<activation>
             <activeByDefault>true</activeByDefault>
@@ -251,6 +251,14 @@
 			                   </configuration>
 			               </execution>
 			           </executions>
+			       </plugin>
+			       <plugin>
+			       		<groupId>org.flywaydb</groupId>
+					  	<artifactId>flyway-maven-plugin</artifactId>
+					  	<version>7.3.0</version>
+					  	<configuration>
+					    	<url>${env.DATABASE_URL}</url>
+					  	</configuration>
 			       </plugin>
 		       </plugins>
 	       </build>
