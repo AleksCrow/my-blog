@@ -244,10 +244,17 @@
 			                               <destFileName>webapp-runner.jar</destFileName>
 			                           </artifactItem>
 			                           <artifactItem>
-										    <groupId>org.flywaydb</groupId>
-										    <artifactId>flyway-core</artifactId>
-										    <version>7.3.0</version>
-										</artifactItem>
+								            <groupId>org.flywaydb</groupId>
+								            <artifactId>flyway-core</artifactId>
+								            <version>3.2.1</version>
+								            <destFileName>flyway.jar</destFileName>
+								          </artifactItem>
+								          <artifactItem>
+								            <groupId>org.postgresql</groupId>
+								            <artifactId>postgresql</artifactId>
+								            <version>9.4-1204-jdbc41</version>
+								            <destFileName>postgres.jar</destFileName>
+								          </artifactItem>
 			                       </artifactItems>
 			                   </configuration>
 			               </execution>
