@@ -15,9 +15,7 @@ public class Migrations {
 		
         Flyway flyway = Flyway
         		.configure()
-        		.dataSource(System.getenv(dbUrl),
-        				System.getenv(username),
-        				System.getenv(password))
+        		.dataSource(dbUrl, username, password)
     			.load();
         flyway.migrate();
     }
