@@ -141,12 +141,6 @@
 	    <version>1.4.200</version>
 	    <scope>test</scope>
 	</dependency>
-	
-	<dependency>
-	    <groupId>org.flywaydb</groupId>
-	    <artifactId>flyway-maven-plugin</artifactId>
-	    <version>7.3.0</version>
-	</dependency>
   </dependencies>
   
   <build>
@@ -194,12 +188,6 @@
           </execution>
         </executions>
       </plugin>
-    	
-	   	<plugin>
-		    <groupId>org.flywaydb</groupId>
-		    <artifactId>flyway-maven-plugin</artifactId>
-		    <version>4.0.3</version>
-		</plugin>
     </plugins>
   </build>
   
@@ -207,13 +195,31 @@
   	
   	<profile>
   		<id>local-tomcat</id>
-  		<dependencies>
-  			<dependency>
-			    <groupId>org.postgresql</groupId>
-			    <artifactId>postgresql</artifactId>
-			    <version>42.2.16</version>
-			</dependency>
-  		</dependencies>
+  		<build>
+  			<plugins>
+           		<plugin>
+			    	<groupId>org.flywaydb</groupId>
+			    	<artifactId>flyway-maven-plugin</artifactId>
+			    	<version>7.3.1</version>
+			    	<configuration>
+                    <sqlMigrationSeparator>__</sqlMigrationSeparator>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migration</location>
+                    </locations>
+                    <url>jdbc:postgresql://localhost:5432/myblog</url>
+                    <user>user</user>
+                    <password>root</password>
+	                </configuration>
+	                <dependencies>
+	                    <dependency>
+						    <groupId>org.postgresql</groupId>
+						    <artifactId>postgresql</artifactId>
+						    <version>42.2.18</version>
+						</dependency>
+	                </dependencies>
+				</plugin>
+			</plugins>
+       	</build>
   		<activation>
             <activeByDefault>true</activeByDefault>
         </activation>
@@ -243,25 +249,35 @@
 			                               <version>9.0.22.0</version>
 			                               <destFileName>webapp-runner.jar</destFileName>
 			                           </artifactItem>
-			                           <artifactItem>
-								            <groupId>org.flywaydb</groupId>
-								            <artifactId>flyway-core</artifactId>
-								            <version>3.2.1</version>
-								            <destFileName>flyway.jar</destFileName>
-								          </artifactItem>
 			                       </artifactItems>
 			                   </configuration>
 			               </execution>
 			           </executions>
 			       </plugin>
+			       <plugin>
+			    	<groupId>org.flywaydb</groupId>
+			    	<artifactId>flyway-maven-plugin</artifactId>
+			    	<version>7.3.1</version>
+			    	<configuration>
+                    <sqlMigrationSeparator>__</sqlMigrationSeparator>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migration</location>
+                    </locations>
+                    <url>${database.url}</url>
+                    <user>${database.user}</user>
+                    <password>${database.password}</password>
+	                </configuration>
+	                <dependencies>
+	                    <dependency>
+						    <groupId>org.postgresql</groupId>
+						    <artifactId>postgresql</artifactId>
+						    <version>42.2.18</version>
+						</dependency>
+	                </dependencies>
+				</plugin>
 		       </plugins>
 	       </build>
 	       <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <version>42.2.18</version>
-                </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
