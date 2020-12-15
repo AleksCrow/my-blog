@@ -263,9 +263,9 @@
                     <locations>
                         <location>filesystem:src/main/resources/db/migration</location>
                     </locations>
-                    <url>${JDBC_DATABASE_URL}</url>
-                    <user>${JDBC_DATABASE_USERNAME}</user>
-                    <password>${JDBC_DATABASE_PASSWORD}</password>
+                    <url>${DATABASE_URL}</url>
+                    <user>${DATABASE_USERNAME}</user>
+                    <password>${DATABASE_PASSWORD}</password>
 	                </configuration>
 	                <dependencies>
 	                    <dependency>
