@@ -268,16 +268,21 @@
                     <password>${DATABASE_PASSWORD}</password>
 	                </configuration>
 	                <dependencies>
-	                    <dependency>
-						    <groupId>org.postgresql</groupId>
+						<dependency>
+						    <groupId>postgresql</groupId>
 						    <artifactId>postgresql</artifactId>
-						    <version>42.2.18</version>
+						    <version>9.1-901-1.jdbc4</version>
 						</dependency>
 	                </dependencies>
 				</plugin>
 		       </plugins>
 	       </build>
 	       <dependencies>
+	       		<dependency>
+				    <groupId>org.postgresql</groupId>
+				    <artifactId>postgresql</artifactId>
+				    <version>42.2.18</version>
+				</dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
