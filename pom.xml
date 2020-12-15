@@ -258,15 +258,18 @@
 			    	<groupId>org.flywaydb</groupId>
 			    	<artifactId>flyway-maven-plugin</artifactId>
 			    	<version>7.3.1</version>
-			    	<configuration>
+			    	<!-- <configuration>
                     <sqlMigrationSeparator>__</sqlMigrationSeparator>
                     <locations>
                         <location>filesystem:src/main/resources/db/migration</location>
                     </locations>
-                    <url>${DATABASE_URL}</url>
+                    <url>${env.JDBC_DATABASE_URL}</url>
                     <user>${DATABASE_USERNAME}</user>
                     <password>${DATABASE_PASSWORD}</password>
-	                </configuration>
+	                </configuration> -->
+	                <configuration>
+					    <url>${env.JDBC_DATABASE_URL}</url>
+					  </configuration>
 	                <dependencies>
 						<dependency>
 						    <groupId>postgresql</groupId>
