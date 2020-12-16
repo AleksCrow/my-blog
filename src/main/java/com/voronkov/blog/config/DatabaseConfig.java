@@ -104,16 +104,16 @@ public class DatabaseConfig {
 
   @Bean
   public JdbcTemplate applicationDataConnection() throws URISyntaxException {
-    return new JdbcTemplate(dataSource());
+    return new JdbcTemplate(dataSource);
   }
 
   @Bean
   public PlatformTransactionManager txManager() throws URISyntaxException {
-    return new DataSourceTransactionManager(dataSource());
+    return new DataSourceTransactionManager(dataSource);
   }
 
   @Bean
   public NamedParameterJdbcTemplate namedParameterJdbcTemplate() throws URISyntaxException {
-    return new NamedParameterJdbcTemplate(dataSource());
+    return new NamedParameterJdbcTemplate(dataSource);
   }
 }
