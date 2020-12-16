@@ -201,15 +201,6 @@
 			    	<groupId>org.flywaydb</groupId>
 			    	<artifactId>flyway-maven-plugin</artifactId>
 			    	<version>7.3.1</version>
-			    	<configuration>
-                    <sqlMigrationSeparator>__</sqlMigrationSeparator>
-                    <locations>
-                        <location>filesystem:src/main/resources/db/migration</location>
-                    </locations>
-                    <url>jdbc:postgresql://localhost:5432/myblog</url>
-                    <user>user</user>
-                    <password>root</password>
-	                </configuration>
 	                <dependencies>
 	                    <dependency>
 						    <groupId>org.postgresql</groupId>
@@ -258,15 +249,15 @@
 			    	<groupId>org.flywaydb</groupId>
 			    	<artifactId>flyway-maven-plugin</artifactId>
 			    	<version>7.3.1</version>
-			    	<configuration>
-                    <!-- <sqlMigrationSeparator>__</sqlMigrationSeparator>
+			    	<!-- <configuration>
+                    <sqlMigrationSeparator>__</sqlMigrationSeparator>
                     <locations>
                         <location>filesystem:src/main/resources/db/migration</location>
-                    </locations> -->
+                    </locations>
                     <url>${JDBC_DATABASE_URL}</url>
                     <user>${JDBC_DATABASE_USERNAME}</user>
                     <password>${JDBC_DATABASE_PASSWORD}</password>
-	                </configuration>
+	                </configuration> -->
 	                <dependencies>
 						<dependency>
 						    <groupId>postgresql</groupId>
@@ -278,6 +269,11 @@
 		       </plugins>
 	       </build>
 	       <dependencies>
+		       <dependency>
+				    <groupId>com.zaxxer</groupId>
+				    <artifactId>HikariCP</artifactId>
+				    <version>3.4.5</version>
+				</dependency>
 	       		<dependency>
 				    <groupId>org.postgresql</groupId>
 				    <artifactId>postgresql</artifactId>
